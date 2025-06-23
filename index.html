@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SafeWalk – Walk Me Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="manifest" href="manifest.json" />
-<link rel="icon" href="icons/icon-192.png" />
-<meta name="theme-color" content="#007aff" />
-
+  <link rel="icon" href="icons/icon-192.png" />
+  <meta name="theme-color" content="#007aff" />
 </head>
 <body>
   <div class="container">
@@ -17,7 +17,6 @@
     <section id="home" class="screen active">
       <div class="header">
         <img src="Images/50c0345b-5022-473b-a02d-8dd820807b62.png" alt="SafeWalk Logo" class="logo" />
-
         <h1 class="title">SafeWalk</h1>
         <p class="subtitle">Your safety, always in motion.</p>
       </div>
@@ -52,6 +51,7 @@
         <div id="locationText" class="location">Locating...</div>
         <div id="timer" class="timer">00:00</div>
       </div>
+      <div id="map" style="height: 300px; width: 100%; margin-top: 1rem;"></div>
       <div class="actions">
         <button onclick="promptPin()" class="btn primary">I'm Home Safe</button>
         <button onclick="sendPanic()" class="btn danger">Panic Alert</button>
@@ -80,6 +80,8 @@
     </section>
 
   </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
