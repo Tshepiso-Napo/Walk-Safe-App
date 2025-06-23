@@ -7,6 +7,8 @@ const screens = {
 }
 
 let walkTimer, seconds = 0
+let mapInitialized = false
+let map, marker
 
 function showScreen(id) {
   Object.values(screens).forEach(s => s.classList.remove('active'))
@@ -45,6 +47,11 @@ function startWalk() {
   showScreen('walk')
   seconds = 0
   updateLocation()
+
+  if (!mapInitialized) {
+    initMap()
+    mapInitialized = true
+  }
 
   walkTimer = setInterval(() => {
     seconds++
@@ -100,4 +107,36 @@ function handlePin() {
   } else {
     alert("Wrong PIN.")
   }
+}
+
+function initMap() {
+  navigator.geolocation.getCurrentPosition(pos => {
+    const lat = pos.coords.latitude
+    const lon = pos.coords.longitude
+
+    map = L.map('map').setView([lat, lon], 16)
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map)
+
+    marker = L.marker([lat, lon]).addTo(map)
+
+    navigator.geolocation.watchPosition(updatePosition, () => {})
+  }, () => {
+    map = L.map('map').setView([-26.2041, 28.0473], 15)
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map)
+
+    marker = L.marker([-26.2041, 28.0473]).addTo(map)
+  })
+}
+
+function updatePosition(pos) {
+  const lat = pos.coords.latitude
+  const lon = pos.coords.longitude
+  map.setView([lat, lon], 16)
+  marker.setLatLng([lat, lon])
 }
