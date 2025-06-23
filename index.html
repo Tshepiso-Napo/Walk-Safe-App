@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeWalk – Walk Me Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/icon-192.png" />
+<meta name="theme-color" content="#007aff" />
+
+</head>
+<body>
+  <div class="container">
+
+    <section id="home" class="screen active">
+      <div class="header">
+        <img src="Images/50c0345b-5022-473b-a02d-8dd820807b62.png" alt="SafeWalk Logo" class="logo" />
+
+        <h1 class="title">SafeWalk</h1>
+        <p class="subtitle">Your safety, always in motion.</p>
+      </div>
+      <div class="actions">
+        <button onclick="showScreen('setContact')" class="btn primary">Set Trusted Contact</button>
+        <button onclick="startWalk()" class="btn primary">Start Walk</button>
+        <button onclick="sendPanic()" class="btn danger">Panic Alert</button>
+      </div>
+    </section>
+
+    <section id="setContact" class="screen">
+      <div class="header">
+        <h1 class="title">Trusted Contact</h1>
+        <p class="subtitle">Someone you trust to monitor your journey.</p>
+      </div>
+      <div class="form">
+        <input type="text" id="contactName" placeholder="Contact Name" />
+        <input type="text" id="contactNumber" placeholder="Phone Number (WhatsApp)" />
+        <input type="password" id="realPin" placeholder="Real PIN" />
+        <input type="password" id="decoyPin" placeholder="Decoy PIN" />
+        <button onclick="saveContact()" class="btn primary">Save</button>
+        <button onclick="showScreen('home')" class="btn secondary">Back</button>
+      </div>
+    </section>
+
+    <section id="walk" class="screen">
+      <div class="header">
+        <h1 class="title">Live Walk</h1>
+        <p class="subtitle">We’re tracking your journey.</p>
+      </div>
+      <div class="walk-info">
+        <div id="locationText" class="location">Locating...</div>
+        <div id="timer" class="timer">00:00</div>
+      </div>
+      <div class="actions">
+        <button onclick="promptPin()" class="btn primary">I'm Home Safe</button>
+        <button onclick="sendPanic()" class="btn danger">Panic Alert</button>
+      </div>
+    </section>
+
+    <section id="pinEntry" class="screen">
+      <div class="header">
+        <h1 class="title">Enter PIN</h1>
+        <p class="subtitle">Use your private PIN to end tracking.</p>
+      </div>
+      <div class="form">
+        <input type="password" id="pinInput" placeholder="Enter PIN" />
+        <button onclick="handlePin()" class="btn primary">Submit</button>
+      </div>
+    </section>
+
+    <section id="safe" class="screen">
+      <div class="header">
+        <h1 class="title">You're Home Safe</h1>
+        <p class="subtitle">Tracking ended. Your contact has been notified.</p>
+      </div>
+      <div class="actions">
+        <button onclick="showScreen('home')" class="btn primary">Back to Home</button>
+      </div>
+    </section>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
