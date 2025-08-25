@@ -18,11 +18,12 @@
       <div class="header">
         <img src="Images/50c0345b-5022-473b-a02d-8dd820807b62.png" alt="SafeWalk Logo" class="logo" />
         <h1 class="title">SafeWalk</h1>
-        <p class="subtitle">Your safety, always in motion.</p>
+        <p class="subtitle">With you all the way.</p>
       </div>
       <div class="actions">
         <button onclick="showScreen('setContact')" class="btn primary">Set Trusted Contact</button>
         <button onclick="startWalk()" class="btn primary">Start Walk</button>
+        <button onclick="showScreen('history')" class="btn secondary">Walk History</button>
         <button onclick="sendPanic()" class="btn danger">Panic Alert</button>
       </div>
     </section>
@@ -35,10 +36,10 @@
       <div class="form">
         <input type="text" id="contactName" placeholder="Contact Name" />
         <input type="text" id="contactNumber" placeholder="Phone Number (WhatsApp)" />
-        <input type="password" id="realPin" placeholder="Real PIN" />
-        <input type="password" id="decoyPin" placeholder="Decoy PIN" />
+        <input type="password" id="realPin" placeholder="Real PIN (5 digits)" maxlength="5" />
+        <input type="password" id="decoyPin" placeholder="Decoy PIN (5 digits)" maxlength="5" />
         <button onclick="saveContact()" class="btn primary">Save</button>
-        <button onclick="showScreen('home')" class="btn secondary">Back</button>
+        <button onclick="goBack()" class="btn secondary">Back</button>
       </div>
     </section>
 
@@ -55,17 +56,20 @@
       <div class="actions">
         <button onclick="promptPin()" class="btn primary">I'm Home Safe</button>
         <button onclick="sendPanic()" class="btn danger">Panic Alert</button>
+        <button onclick="goBack()" class="btn secondary">Back</button>
       </div>
     </section>
 
     <section id="pinEntry" class="screen">
       <div class="header">
         <h1 class="title">Enter PIN</h1>
-        <p class="subtitle">Use your private PIN to end tracking.</p>
+        <p class="subtitle">Use your 5-digit personal PIN to end tracking.</p>
       </div>
       <div class="form">
-        <input type="password" id="pinInput" placeholder="Enter PIN" />
+        <input type="password" id="pinInput" placeholder="Enter 5-digit PIN" maxlength="5" />
+        <small id="pinInstructions">Your PIN must be exactly 5 digits.</small>
         <button onclick="handlePin()" class="btn primary">Submit</button>
+        <button onclick="goBack()" class="btn secondary">Back</button>
       </div>
     </section>
 
@@ -76,6 +80,18 @@
       </div>
       <div class="actions">
         <button onclick="showScreen('home')" class="btn primary">Back to Home</button>
+        <button onclick="goBack()" class="btn secondary">Back</button>
+      </div>
+    </section>
+
+    <section id="history" class="screen">
+      <div class="header">
+        <h1 class="title">Walk History</h1>
+        <p class="subtitle">Your previous walks and snapshots.</p>
+      </div>
+      <div id="historyList"></div>
+      <div class="actions">
+        <button onclick="goBack()" class="btn secondary">Back</button>
       </div>
     </section>
 
