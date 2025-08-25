@@ -88,39 +88,22 @@ body {
   user-select: none;
 }
 
-.btn:hover {
-  background-color: #005ecb;
-}
-
-.btn:active {
-  background-color: #004299;
-}
+.btn:hover { background-color: #005ecb; }
+.btn:active { background-color: #004299; }
 
 .btn.danger {
   background-color: var(--danger);
 }
-
-.btn.danger:hover {
-  background-color: #cc2c25;
-}
-
-.btn.danger:active {
-  background-color: #a0201a;
-}
+.btn.danger:hover { background-color: #cc2c25; }
+.btn.danger:active { background-color: #a0201a; }
 
 .btn.secondary {
-  background-color: #e1e4ea;
-  color: var(--text-primary);
+  background-color: var(--primary);
+  color: white;
   font-weight: 600;
 }
-
-.btn.secondary:hover {
-  background-color: #cfd3db;
-}
-
-.btn.secondary:active {
-  background-color: #bfc3cb;
-}
+.btn.secondary:hover { background-color: #005ecb; }
+.btn.secondary:active { background-color: #004299; }
 
 input[type="text"],
 input[type="password"] {
@@ -165,21 +148,11 @@ input[type="password"]:focus {
   margin-bottom: 30px;
 }
 
+small { color: var(--text-secondary); font-size: 12px; }
+
 @media (max-width: 400px) {
-  body {
-    padding: 12px;
-  }
-
-  .title {
-    font-size: 24px;
-  }
-
-  .btn {
-    font-size: 16px;
-    padding: 14px 0;
-  }
-
-  .logo {
-    width: 60px;
-  }
+  body { padding: 12px; }
+  .title { font-size: 24px; }
+  .btn { font-size: 16px; padding: 14px 0; }
+  .logo { width: 60px; }
 }
