@@ -1,174 +1,160 @@
-Here is your updated **index.html** with Firebase properly linked (clean, production-ready structure, no extra comments).
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>SafeWalk</title>
 
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#0f172a" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-  <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="firebase.js"></script>
 </head>
 
 <body>
 
+<div class="app-container">
+
   <section id="home" class="screen active">
 
     <div class="topbar">
-      <div class="logo-wrap">
+
+      <div class="brand-wrap">
+
         <img src="Images/50c0345b-5022-473b-a02d-8dd820807b62.png" class="logo">
-        <div class="brand">
+
+        <div class="brand-text">
           <h1>SafeWalk</h1>
-          <p>Walk with confidence.</p>
+          <p>Walk with confidence</p>
         </div>
+
       </div>
 
-      <div class="status">
-        Active
-      </div>
+      <div class="status-badge">Active</div>
+
     </div>
 
-    <div class="hero">
-      <div>
-        <h2>Your personal walking companion.</h2>
-        <p>
-          Real-time tracking, panic alerts and trusted contacts designed in a clean modern experience.
-        </p>
+    <div class="hero-card">
+
+      <div class="hero-content">
+        <div class="hero-label">Safety First</div>
+        <h2>Your personal walking companion</h2>
+        <p>Real-time tracking and emergency alerts built for safety.</p>
       </div>
 
-      <button onclick="startWalk()">
-        Start Safe Walk
-      </button>
+      <button class="hero-button" onclick="startWalk()">Start Safe Walk</button>
+
     </div>
 
-    <div class="section-title">
-      Quick Actions
-    </div>
+    <div class="quick-section">
 
-    <div class="cards">
-
-      <div class="card" onclick="showScreen('setContact')">
-        <div class="icon blue">+</div>
-        <div>
-          <h3>Trusted Contact</h3>
-          <p>Add someone to monitor your journey live.</p>
-        </div>
+      <div class="section-header">
+        <h3>Quick Actions</h3>
       </div>
 
-      <div class="card" onclick="sendPanic()">
-        <div class="icon red">!</div>
-        <div>
-          <h3>Panic Alert</h3>
-          <p>Send emergency location instantly.</p>
-        </div>
-      </div>
+      <div class="quick-grid">
 
-      <div class="card">
-        <div class="icon dark">⌖</div>
-        <div>
-          <h3>Live Tracking</h3>
-          <p>Real-time GPS location updates while walking.</p>
+        <div class="quick-card" onclick="showScreen('setContact')">
+          <div class="quick-icon blue-icon">+</div>
+          <div class="quick-info">
+            <h4>Trusted Contact</h4>
+            <p>Add emergency contact</p>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="icon blue">✓</div>
-        <div>
-          <h3>Safe Arrival</h3>
-          <p>End your journey securely using your PIN.</p>
+        <div class="quick-card" onclick="sendPanic()">
+          <div class="quick-icon red-icon">!</div>
+          <div class="quick-info">
+            <h4>Panic Alert</h4>
+            <p>Send emergency alert</p>
+          </div>
         </div>
-      </div>
 
+        <div class="quick-card" onclick="startWalk()">
+          <div class="quick-icon dark-icon">⌖</div>
+          <div class="quick-info">
+            <h4>Live Tracking</h4>
+            <p>Start GPS tracking</p>
+          </div>
+        </div>
+
+        <div class="quick-card" onclick="promptPin()">
+          <div class="quick-icon green-icon">✓</div>
+          <div class="quick-info">
+            <h4>Safe Arrival</h4>
+            <p>End walk securely</p>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </section>
 
   <section id="setContact" class="screen">
 
-    <div class="topbar">
-      <div class="brand">
-        <h1>Trusted Contact</h1>
-        <p>Setup your safety circle.</p>
-      </div>
+    <div class="page-header">
+      <h1>Trusted Contact</h1>
+      <p>Setup emergency contact</p>
     </div>
 
-    <div class="form-wrap">
+    <div class="form-layout">
 
-      <div class="input-group">
-        <label>Contact Name</label>
-        <input type="text" id="contactName">
+      <div class="input-card">
+        <label>Name</label>
+        <input id="contactName">
       </div>
 
-      <div class="input-group">
-        <label>Phone Number</label>
-        <input type="tel" id="contactNumber">
+      <div class="input-card">
+        <label>Number</label>
+        <input id="contactNumber">
       </div>
 
-      <div class="input-group">
+      <div class="input-card">
         <label>Real PIN</label>
-        <input type="password" id="realPin">
+        <input id="realPin" type="password">
       </div>
 
-      <div class="input-group">
+      <div class="input-card">
         <label>Decoy PIN</label>
-        <input type="password" id="decoyPin">
+        <input id="decoyPin" type="password">
       </div>
 
-      <button class="primary-btn" onclick="saveContact()">
-        Save Contact
-      </button>
+    </div>
 
-      <button class="secondary-btn" onclick="showScreen('home')">
-        Back
-      </button>
-
+    <div class="bottom-buttons">
+      <button class="primary-button" onclick="saveContact()">Save</button>
+      <button class="secondary-button" onclick="showScreen('home')">Back</button>
     </div>
 
   </section>
 
   <section id="walk" class="screen">
 
-    <div class="topbar">
-      <div class="brand">
-        <h1>Live Walk</h1>
-        <p>Tracking enabled.</p>
-      </div>
+    <div class="page-header">
+      <h1>Live Walk</h1>
+      <p>Tracking enabled</p>
     </div>
 
-    <div class="walk-card">
+    <div class="tracking-card">
 
-      <div class="walk-top">
-        <h2>Current Journey</h2>
-        <div class="timer" id="timer">00:00</div>
-      </div>
+      <div class="tracking-top">
+        <div>
+          <h3>Current Journey</h3>
+          <p id="locationText">Waiting for GPS...</p>
+        </div>
 
-      <div class="location" id="locationText">
-        Fetching your live location...
+        <div class="timer-box" id="timer">00:00</div>
       </div>
 
       <div id="map"></div>
 
     </div>
 
-    <div class="bottom-actions">
+    <div class="bottom-buttons">
 
-      <button class="primary-btn" onclick="promptPin()">
-        I'm Home Safe
-      </button>
-
-      <button class="danger-btn" onclick="sendPanic()">
-        Panic Alert
-      </button>
+      <button class="primary-button" onclick="promptPin()">I'm Safe</button>
+      <button class="danger-button" onclick="sendPanic()">Panic</button>
 
     </div>
 
@@ -176,53 +162,43 @@ Here is your updated **index.html** with Firebase properly linked (clean, produc
 
   <section id="pinEntry" class="screen">
 
-    <div class="topbar">
-      <div class="brand">
-        <h1>Security PIN</h1>
-        <p>End your walk securely.</p>
-      </div>
+    <div class="page-header">
+      <h1>Enter PIN</h1>
     </div>
 
-    <div class="form-wrap">
+    <div class="input-card">
+      <label>PIN</label>
+      <input id="pinInput" type="password">
+    </div>
 
-      <div class="input-group">
-        <label>Enter PIN</label>
-        <input type="password" id="pinInput">
-      </div>
-
-      <button class="primary-btn" onclick="handlePin()">
-        Verify PIN
-      </button>
-
+    <div class="bottom-buttons">
+      <button class="primary-button" onclick="handlePin()">Confirm</button>
     </div>
 
   </section>
 
   <section id="safe" class="screen">
 
-    <div class="safe-wrap">
+    <div class="safe-screen-content">
 
-      <div class="safe-icon">✓</div>
-
+      <div class="safe-badge">✓</div>
       <h1>You’re Safe</h1>
+      <p>Walk ended successfully.</p>
 
-      <p>
-        Tracking has ended and your trusted contact has been notified successfully.
-      </p>
-
-      <button class="primary-btn" onclick="showScreen('home')">
-        Back Home
+      <button class="primary-button full-width" onclick="showScreen('home')">
+        Home
       </button>
 
     </div>
 
   </section>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</div>
 
-  <script type="module" src="firebase.js"></script>
-  <script type="module" src="app.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="firebase.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
-```
