@@ -1,3 +1,10 @@
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  auth,
+  onAuthStateChanged
+} from "./firebase.js";
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
     .then(() => console.log('SafeWalk service worker registered'));
@@ -16,11 +23,13 @@ let lastSnapshot = null;
 
 function initScreens() {
   screens = {
+    auth: document.getElementById('auth'),
     home: document.getElementById('home'),
     setContact: document.getElementById('setContact'),
     walk: document.getElementById('walk'),
     pinEntry: document.getElementById('pinEntry'),
-    safe: document.getElementById('safe')
+    safe: document.getElementById('safe'),
+    history: document.getElementById('history')
   };
 }
 
@@ -33,6 +42,45 @@ function showScreen(id) {
     screens[id].classList.add('active');
   }
 }
+
+function isStrongPassword(password) {
+  return (
+    password.length >= 8 &&
+    /[A-Z]/.test(password) &&
+    /[0-9]/.test(password)
+  );
+}
+
+function signup() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  if (!isStrongPassword(password)) {
+    alert("Password must be 8+ characters, include 1 uppercase letter and 1 number.");
+    return;
+  }
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => showScreen('home'))
+    .catch(err => alert(err.message));
+}
+
+function login() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => showScreen('home'))
+    .catch(err => alert(err.message));
+}
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    showScreen('home');
+  } else {
+    showScreen('auth');
+  }
+});
 
 function saveContact() {
   const name = document.getElementById('contactName').value.trim();
@@ -55,7 +103,6 @@ function saveContact() {
   localStorage.setItem('realPIN', realPin);
   localStorage.setItem('decoyPIN', decoyPin);
 
-  alert("Contact & PINs saved.");
   showScreen('home');
 }
 
@@ -136,9 +183,6 @@ function sendPanic() {
 
   }, () => {
     alert("Could not get location.");
-  }, {
-    enableHighAccuracy: true,
-    timeout: 5000
   });
 }
 
@@ -205,9 +249,6 @@ function initMap() {
     }).addTo(map);
 
     marker = L.marker([-26.2041, 28.0473]).addTo(map);
-  }, {
-    enableHighAccuracy: true,
-    timeout: 10000
   });
 }
 
@@ -232,7 +273,6 @@ function startShakeListener() {
 
   window.addEventListener('devicemotion', e => {
     const a = e.accelerationIncludingGravity;
-
     if (!a) return;
 
     if (lastX !== null) {
@@ -289,5 +329,7 @@ window.startWalk = startWalk;
 window.sendPanic = sendPanic;
 window.promptPin = promptPin;
 window.handlePin = handlePin;
+window.signup = signup;
+window.login = login;
 
 initScreens();
