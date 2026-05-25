@@ -1,3 +1,5 @@
+console.log("APP JS LOADED");
+
 import {
   collection,
   query,
@@ -24,24 +26,28 @@ import {
   onMessage
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-messaging.js";
 
+const messaging = getMessaging();
+
 async function initPush() {
-  const permission = await Notification.requestPermission();
-  if (permission !== "granted") return;
+  try {
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") return;
 
-  const token = await getToken(messaging, {
-    vapidKey: "BI5zmQKhmBPuqufv2MoICc_wBfJmqSiAI9fyv1vlzmFFR5R__Cxu7WE2ywRQTsH4kyhAWc7wQBJZh0m0aM7ZJKM"
-  });
+    const token = await getToken(messaging, {
+      vapidKey: "BI5zmQKhmBPuqufv2MoICc_wBfJmqSiAI9fyv1vlzmFFR5R__Cxu7WE2ywRQTsH4kyhAWc7wQBJZh0m0aM7ZJKM"
+    });
 
-  const user = auth.currentUser;
+    const user = auth.currentUser;
 
-  if (user && token) {
-    await setDoc(doc(db, "users", user.uid), {
-      fcmToken: token
-    }, { merge: true });
+    if (user && token) {
+      await setDoc(doc(db, "users", user.uid), {
+        fcmToken: token
+      }, { merge: true });
+    }
+  } catch (e) {
+    console.log(e);
   }
 }
-
-const messaging = getMessaging();
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
@@ -75,6 +81,7 @@ function showScreen(id) {
   Object.values(screens).forEach(s => {
     if (s) s.classList.remove('active');
   });
+
   if (screens[id]) screens[id].classList.add('active');
 }
 
@@ -232,11 +239,7 @@ function updateLocation() {
     if (loc) loc.innerText = `📍 ${lat}, ${lon}`;
 
     if (walkHistory.length) {
-      walkHistory[walkHistory.length - 1].route.push({
-        lat,
-        lon,
-        time: Date.now()
-      });
+      walkHistory[walkHistory.length - 1].route.push({ lat, lon, time: Date.now() });
     }
   });
 }
@@ -257,11 +260,6 @@ async function sendPanic() {
     if (!userDoc.exists()) return;
 
     const trustedEmail = userDoc.data().trustedEmail;
-
-    if (!trustedEmail) {
-      alert("No trusted contact set");
-      return;
-    }
 
     await addDoc(collection(db, "alerts"), {
       fromUser: user.email,
