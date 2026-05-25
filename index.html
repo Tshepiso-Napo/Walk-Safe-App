@@ -29,15 +29,14 @@
         <input id="email" type="email">
       </div>
 
+      
+
       <div class="input-card">
         <label>Password</label>
 
         <div style="display:flex; gap:10px; align-items:center;">
           <input id="password" type="password" style="flex:1;">
-
-          <button type="button" onclick="togglePassword()" style="padding:10px;">
-            👁
-          </button>
+          <button type="button" onclick="togglePassword()" style="padding:10px;">👁</button>
         </div>
 
         <small style="color:#666; font-size:12px;">
@@ -48,10 +47,8 @@
     </div>
 
     <div class="bottom-buttons">
-
       <button class="primary-button" onclick="signup()">Sign Up</button>
       <button class="primary-button" onclick="login()">Login</button>
-
     </div>
 
   </section>
@@ -127,7 +124,7 @@
           </div>
         </div>
 
-        <div class="quick-card" onclick="showScreen('history');showWalkHistory();">
+        <div class="quick-card" onclick="showScreen('history')">
           <div class="quick-icon blue-icon">🕒</div>
           <div class="quick-info">
             <h4>History</h4>
@@ -141,43 +138,48 @@
 
   </section>
 
-  <section id="setContact" class="screen">
+ <section id="setContact" class="screen">
 
-    <div class="page-header">
-      <h1>Trusted Contact</h1>
-      <p>Setup emergency contact</p>
+  <div class="page-header">
+    <h1>Trusted Contact</h1>
+    <p>Setup emergency contact</p>
+  </div>
+
+  <div class="form-layout">
+
+    <div class="input-card">
+      <label>Name</label>
+      <input id="contactName">
     </div>
 
-    <div class="form-layout">
-
-      <div class="input-card">
-        <label>Name</label>
-        <input id="contactName">
-      </div>
-
-      <div class="input-card">
-        <label>Number</label>
-        <input id="contactNumber">
-      </div>
-
-      <div class="input-card">
-        <label>Real PIN</label>
-        <input id="realPin" type="password">
-      </div>
-
-      <div class="input-card">
-        <label>Decoy PIN</label>
-        <input id="decoyPin" type="password">
-      </div>
-
+    <div class="input-card">
+      <label>Number</label>
+      <input id="contactNumber">
     </div>
 
-    <div class="bottom-buttons">
-      <button class="primary-button" onclick="saveContact()">Save</button>
-      <button class="secondary-button" onclick="showScreen('home')">Back</button>
+    <div class="input-card">
+      <label>Trusted Person Email</label>
+      <input id="contactEmail" type="email">
     </div>
 
-  </section>
+    <div class="input-card">
+      <label>Real PIN</label>
+      <input id="realPin" type="password">
+    </div>
+
+    <div class="input-card">
+      <label>Decoy PIN</label>
+      <input id="decoyPin" type="password">
+    </div>
+
+  </div>
+
+  <div class="bottom-buttons">
+    <button class="primary-button" onclick="saveContact()">Save</button>
+    <button class="secondary-button" onclick="showScreen('home')">Back</button>
+  </div>
+
+</section>
 
   <section id="walk" class="screen">
 
@@ -204,14 +206,8 @@
     <div class="bottom-buttons">
 
       <button class="primary-button" onclick="promptPin()">I'm Safe</button>
-
-      <button class="danger-button" onclick="sendPanic()">
-        Panic
-      </button>
-
-      <button class="secondary-button" onclick="showScreen('home')">
-        Back
-      </button>
+      <button class="danger-button" onclick="sendPanic()">Panic</button>
+      <button class="secondary-button" onclick="showScreen('home')">Back</button>
 
     </div>
 
@@ -229,15 +225,8 @@
     </div>
 
     <div class="bottom-buttons">
-
-      <button class="primary-button" onclick="handlePin()">
-        Confirm
-      </button>
-
-      <button class="secondary-button" onclick="showScreen('walk')">
-        Back
-      </button>
-
+      <button class="primary-button" onclick="handlePin()">Confirm</button>
+      <button class="secondary-button" onclick="showScreen('walk')">Back</button>
     </div>
 
   </section>
@@ -250,29 +239,21 @@
     </div>
 
     <div class="tracking-card">
-
       <h3>Walk History</h3>
-
       <div id="historyList">
         <p>No walks recorded yet.</p>
       </div>
-
     </div>
 
     <div class="tracking-card" style="margin-top:20px;">
-
       <h3>Captured Photos</h3>
-
       <div id="photoGallery">
         <p>No photos recorded yet.</p>
       </div>
-
     </div>
 
     <div class="bottom-buttons">
-      <button class="secondary-button" onclick="showScreen('home')">
-        Back
-      </button>
+      <button class="secondary-button" onclick="showScreen('home')">Back</button>
     </div>
 
   </section>
@@ -282,9 +263,7 @@
     <div class="safe-screen-content">
 
       <div class="safe-badge">✓</div>
-
       <h1>You’re Safe</h1>
-
       <p>Walk ended successfully.</p>
 
       <button class="primary-button full-width" onclick="showScreen('home')">
@@ -303,12 +282,7 @@
 <script>
 function togglePassword() {
   const input = document.getElementById("password");
-
-  if (input.type === "password") {
-    input.type = "text";
-  } else {
-    input.type = "password";
-  }
+  input.type = (input.type === "password") ? "text" : "password";
 }
 </script>
 
