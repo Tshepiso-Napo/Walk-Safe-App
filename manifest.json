@@ -1,8 +1,9 @@
 {
   "name": "SafeWalk",
   "short_name": "SafeWalk",
-  "start_url": ".",
+  "start_url": "/index.html",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#f2f5f9",
   "theme_color": "#007aff",
   "description": "Walk Me Home Tracker – built for your safety.",
