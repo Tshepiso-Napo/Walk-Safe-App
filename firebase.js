@@ -3,14 +3,15 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA_ppdMC66lpyakVRhkPRnykQEBMGrb1sE",
+  apiKey: "AIzaSyA_ppdMC66lpyakVRhkPRnykqEBMGrb1sE",
   authDomain: "safewalk-c1d62.firebaseapp.com",
   projectId: "safewalk-c1d62",
   storageBucket: "safewalk-c1d62.firebasestorage.app",
@@ -28,7 +29,8 @@ export const storage = getStorage(app);
 export {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 };
 
 if (typeof window !== "undefined") {
