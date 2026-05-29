@@ -1,13 +1,13 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged
-} from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
-import { getAnalytics } from "firebase/analytics";
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA_ppdMC66lpyakVRhkPRnykQEBMGrb1sE",
@@ -31,4 +31,6 @@ export {
   onAuthStateChanged
 };
 
-getAnalytics(app);
+if (typeof window !== "undefined") {
+  getAnalytics(app);
+}
