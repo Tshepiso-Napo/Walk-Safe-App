@@ -12,12 +12,14 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+// UPDATED: Added signOut to the local firebase imports
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   auth,
   onAuthStateChanged,
-  db
+  db,
+  signOut
 } from "./firebase.js";
 
 import {
@@ -96,6 +98,23 @@ function showScreen(id) {
       renderHistory();
     }
   }
+}
+
+// NEW: Logout implementation to clear active safety checks and sign out
+function logout() {
+  clearInterval(walkTimer);
+  clearInterval(checkInInterval);
+  clearTimeout(checkInTimeout);
+  if (watchId !== null) {
+    navigator.geolocation.clearWatch(watchId);
+    watchId = null;
+  }
+  
+  signOut(auth)
+    .then(() => {
+      showScreen('auth');
+    })
+    .catch(err => alert(err.message));
 }
 
 function isStrongPassword(password) {
@@ -432,6 +451,7 @@ function startCheckIn() {
   }, 300000);
 }
 
+// EXPORTS
 window.showScreen = showScreen;
 window.saveContact = saveContact;
 window.startWalk = startWalk;
@@ -440,5 +460,6 @@ window.promptPin = promptPin;
 window.handlePin = handlePin;
 window.signup = signup;
 window.login = login;
+window.logout = logout; // UPDATED: Registered logout globally
 
 initScreens();
